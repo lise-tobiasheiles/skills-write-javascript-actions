@@ -1,0 +1,26 @@
+name: Joke action
+run-name: Dad Joke for issue ${{ github.event.issue.number }} by ${{.github.event.comment.user.login }}
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  joke:
+    if: startsWith(github.even.comment.body, '/joke')
+    steps:git add .github/workflows/joke-action.yml
+git commit -m "Add workflow to test joke action"
+git push
+      - uses: actions/checkout@v5
+      - name: Get Joke
+        id: get-joke
+        uses: ./
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v5
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: ${{ steps.get-joke.outputs.joke }}
