@@ -12,9 +12,8 @@ permissions:
 jobs:
   joke:
     if: startsWith(github.even.comment.body, '/joke')
-    steps:git add .github/workflows/joke-action.yml
-git commit -m "Add workflow to test joke action"
-git push
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v5
       - name: Get Joke
         id: get-joke
